@@ -51,7 +51,8 @@ type Events struct {
 
 // this is the JSON we will send to the front end
 // this can be added to a database too.
-var events = []Events{{Id: 1, Title: "Do a Skype", Detail: "Skype with guys from NASA", Date: "2015-12-12"},
+var events = []Events{
+	{Id: 1, Title: "Do a Skype", Detail: "Skype with guys from NASA", Date: "2015-12-12"},
 	{Id: 2, Title: "Martian releases", Detail: "Relocate to Mars", Date: "2016-1-1"},
 	{Id: 3, Title: "What is Vue?"},
 }

@@ -9,6 +9,6 @@ If you are new to Go, read [my book](http://github.com/thewhitetulip/web-dev-gol
 ## Building the app
 
 1. install Go
-2. `go get github.com/thewhitetulip/go-vue-events`
+2. `go get github.com/Hextar/go-vue-events`
 3. go run server.go
 4. Open localhost:8080 in your browser

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Vue Cal</title>
+  <title>YOUR APP NAME</title>
   <link rel="stylesheet" href="/public/bootstrap.min.css">
   <style>
   .form-control {
@@ -11,36 +11,197 @@
   .btn-danger {
     margin-top: 8px;
   }
+  .page {
+    display: none;
+  }
+  .page.active {
+    display: block;
+  }
+  .list-group-item.active {
+    background: #428bca;
+    color: #f1f1f1;
+    font-weight: 700;
+  }
   </style>
 </head>
 <body>
-
   <nav class="navbar navbar-default">
     <div class="container-fluid">
-      <a class="navbar-brand"><i class="glyphicon glyphicon-bullhorn"></i> Vue Bulletin</a>
+      <a class="navbar-brand"><i class="glyphicon glyphicon-home"></i> YOUR APP NAME </a>
     </div>
   </nav>
-  <div class="container" id="events">
-    <div class="col-sm-7">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3>Add an Event</h3>
-        </div>
-        <div class="panel-body">
-          <div>
-            <input class="form-control" placeholder="Title" v-model="event.title">
-            <textarea class="form-control" placeholder="details" v-model="event.detail"></textarea>
-            <input type="date" class="form-control" placeholder="choose date" v-model="event.date">
-            <button class="btn btn-primary" v-on:click="addEvent">Submit</button>
+  <div class="container" id="app">
+
+    <div class="col-sm-4">
+      <div class="list-group">
+        <p class="list-group-item" v-bind:class="{active: activePage === 1}" v-on:click="activePage = 1">
+          GET
+        </p>
+        <p class="list-group-item" v-bind:class="{active: activePage === 2}" v-on:click="activePage = 2">
+          POST
+        </p>
+        <p class="list-group-item" v-bind:class="{active: activePage === 3}" v-on:click="activePage = 3">
+          PUT
+        </p>
+        <p class="list-group-item" v-bind:class="{active: activePage === 4}" v-on:click="activePage = 4">
+          PATCH
+        </p>
+        <p class="list-group-item" v-bind:class="{active: activePage === 5}" v-on:click="activePage = 5">
+          DELETE
+        </p>
+      </div>
+    </div>
+
+    <!-- FIRTS PAGE -->
+    <div class="col-sm-8 page" v-bind:class="{active: activePage === 1}">
+
+      <div class="col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3>GET</h3>
+          </div>
+          <div class="panel-body">
+            <div>
+              <input class="form-control" placeholder="Title" v-model="event.title">
+              <textarea class="form-control" placeholder="Detail" v-model="event.detail"></textarea>
+              <input type="date" class="form-control" placeholder="Data" v-model="event.date">
+              <button class="btn btn-primary" v-on:click="addEvent">Submit</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-sm-5">
-      <div class="list-group">
-		    <event-item v-for="(event,index) in events" :event="event" :index="index"></event-item>
+      <div class="col-sm-12">
+        <div class="list-group">
+          <a href="#" class="list-group-item" v-for="(event,index) in events">
+            <h4 class="list-group-item-heading"><i class="glyphicon glyphicon-bullhorn"></i> ${ event.title }</h4>
+            <h5><i class="glyphicon glyphicon-calendar" v-if="event.date"></i> ${ event.date }</h5>
+            <p class="list-group-item-text" v-if="event.detail">${ event.detail }</p>
+            <button class="btn btn-xs btn-danger" v-on:click="deleteEvent($index)">Delete</button>
+          </a>
+        </div>
       </div>
     </div>
+
+    <!-- SECOND PAGE -->
+    <div class="col-sm-8 page" v-bind:class="{active: activePage === 2}">
+
+      <div class="col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3>POST</h3>
+          </div>
+          <div class="panel-body">
+            <div>
+              <input class="form-control" placeholder="Title" v-model="event.title">
+              <textarea class="form-control" placeholder="Detail" v-model="event.detail"></textarea>
+              <input type="date" class="form-control" placeholder="Data" v-model="event.date">
+              <button class="btn btn-primary" v-on:click="addEvent">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="list-group">
+          <a href="#" class="list-group-item" v-for="(event,index) in events">
+            <h4 class="list-group-item-heading"><i class="glyphicon glyphicon-bullhorn"></i> ${ event.title }</h4>
+            <h5><i class="glyphicon glyphicon-calendar" v-if="event.date"></i> ${ event.date }</h5>
+            <p class="list-group-item-text" v-if="event.detail">${ event.detail }</p>
+            <button class="btn btn-xs btn-danger" v-on:click="deleteEvent($index)">Delete</button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- THIRD PAGE -->
+    <div class="col-sm-8 page" v-bind:class="{active: activePage === 3}">
+
+      <div class="col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3>PUT</h3>
+          </div>
+          <div class="panel-body">
+            <div>
+              <input class="form-control" placeholder="Title" v-model="event.title">
+              <textarea class="form-control" placeholder="Detail" v-model="event.detail"></textarea>
+              <input type="date" class="form-control" placeholder="Data" v-model="event.date">
+              <button class="btn btn-primary" v-on:click="addEvent">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="list-group">
+          <a href="#" class="list-group-item" v-for="(event,index) in events">
+            <h4 class="list-group-item-heading"><i class="glyphicon glyphicon-bullhorn"></i> ${ event.title }</h4>
+            <h5><i class="glyphicon glyphicon-calendar" v-if="event.date"></i> ${ event.date }</h5>
+            <p class="list-group-item-text" v-if="event.detail">${ event.detail }</p>
+            <button class="btn btn-xs btn-danger" v-on:click="deleteEvent($index)">Delete</button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOURTH PAGE -->
+    <div class="col-sm-8 page" v-bind:class="{active: activePage === 4}">
+
+      <div class="col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3>PATCH</h3>
+          </div>
+          <div class="panel-body">
+            <div>
+              <input class="form-control" placeholder="Title" v-model="event.title">
+              <textarea class="form-control" placeholder="Detail" v-model="event.detail"></textarea>
+              <input type="date" class="form-control" placeholder="Data" v-model="event.date">
+              <button class="btn btn-primary" v-on:click="addEvent">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="list-group">
+          <a href="#" class="list-group-item" v-for="(event,index) in events">
+            <h4 class="list-group-item-heading"><i class="glyphicon glyphicon-bullhorn"></i> ${ event.title }</h4>
+            <h5><i class="glyphicon glyphicon-calendar" v-if="event.date"></i> ${ event.date }</h5>
+            <p class="list-group-item-text" v-if="event.detail">${ event.detail }</p>
+            <button class="btn btn-xs btn-danger" v-on:click="deleteEvent($index)">Delete</button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FIFTH PAGE -->
+    <div class="col-sm-8 page" v-bind:class="{active: activePage === 5}">
+
+      <div class="col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3>DELETE</h3>
+          </div>
+          <div class="panel-body">
+            <div>
+              <input class="form-control" placeholder="Title" v-model="event.title">
+              <textarea class="form-control" placeholder="Detail" v-model="event.detail"></textarea>
+              <input type="date" class="form-control" placeholder="Data" v-model="event.date">
+              <button class="btn btn-primary" v-on:click="addEvent">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="list-group">
+          <a href="#" class="list-group-item" v-for="(event,index) in events">
+            <h4 class="list-group-item-heading"><i class="glyphicon glyphicon-bullhorn"></i> ${ event.title }</h4>
+            <h5><i class="glyphicon glyphicon-calendar" v-if="event.date"></i> ${ event.date }</h5>
+            <p class="list-group-item-text" v-if="event.detail">${ event.detail }</p>
+            <button class="btn btn-xs btn-danger" v-on:click="deleteEvent($index)">Delete</button>
+          </a>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 </body>

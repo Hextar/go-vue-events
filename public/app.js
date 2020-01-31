@@ -1,41 +1,16 @@
 // var Vue = require('vue');
 
-Vue.component('event-item', {
-  props: ['event', 'index'],
-  template:'\
-  <span>\
-        <h4 class="list-group-item-heading"><i class="glyphicon glyphicon-bullhorn"></i>  {{event.title }}</h4>\
-        <h5><i class="glyphicon glyphicon-calendar" v-if="event.date"></i> {{ event.date }}</h5>\
-        <p class="list-group-item-text" v-if="event.detail">{{ event.detail }}</p>\
-        <button class="btn btn-xs btn-danger" v-on:click="deleteEvent(index)">Delete</button> </span>',
-  methods: {  
-     deleteEvent: function (index) {
-      if (confirm('Really want to delete？')) {
-        console.log(index);
-        this.$http.delete('/api/events/' + index)
-          .then(response => response)
-          .then( result =>{
-              console.log(result);
-              app.events.splice(index, 1);
-            }).catch( err => {
-              console.log(err);
-              alert("unable to delete")
-            });
-      }
-    }
-  }
-});
-
 var app = new Vue({
-  el: '#events',
+  el: '#app',
 
   data: {
     event: { title: '', detail: '', date: '' },
-    events: []  
+    events: [],
+    activePage: 1
   },
+
   delimiters: ['${', '}'],
   
-
   mounted: function () {
     this.fetchEvents();
   },
@@ -70,6 +45,21 @@ var app = new Vue({
           });
       }
 
+    },
+
+    deleteEvent: function (index) {
+      if (confirm('Really want to delete？')) {
+        console.log(index);
+        this.$http.delete('/api/events/' + index)
+          .then(response => response)
+          .then( result =>{
+              console.log(result);
+              app.events.splice(index, 1);
+            }).catch( err => {
+              console.log(err);
+              alert("unable to delete")
+            });
+      }
     }
   }
 });
